@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'" />
+  <title>Lunna SDR</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Lunna SDR</h1>
+    <div id="wa-badge" class="badge">WhatsApp: …</div>
+    <div class="spacer"></div>
+    <button id="btn-pause">Pausar envios</button>
+    <button id="btn-sync">Buscar leads agora</button>
+  </header>
+
+  <main>
+    <section id="wa-panel" class="card hidden">
+      <h2>Conectar WhatsApp</h2>
+      <p>No celular: WhatsApp → <b>Aparelhos conectados</b> → <b>Conectar um aparelho</b> e escaneie:</p>
+      <img id="qr" alt="QR code do WhatsApp" />
+      <p id="wa-msg" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <h2>Leads</h2>
+        <span id="sync-info" class="muted"></span>
+      </div>
+      <p id="sync-error" class="error hidden"></p>
+      <table>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>Respondeu</th><th>Status</th><th></th></tr></thead>
+        <tbody id="leads"></tbody>
+      </table>
+      <p id="empty" class="muted hidden">Nenhuma resposta na planilha ainda.</p>
+    </section>
+
+    <section class="card">
+      <h2>Configurações</h2>
+      <label>Mensagem (use <code>{nome}</code> para o primeiro nome)
+        <textarea id="cfg-message" rows="3"></textarea>
+      </label>
+      <div class="grid">
+        <label>ID da planilha<input id="cfg-sheet" /></label>
+        <label>Buscar a cada (min)<input id="cfg-poll" type="number" min="1" /></label>
+        <label>Intervalo entre envios (s)<input id="cfg-interval" type="number" min="5" /></label>
+        <label class="check"><input id="cfg-auto" type="checkbox" /> Enviar sozinho para leads novos</label>
+      </div>
+      <div class="grid">
+        <label>Coluna do nome (vazio = automático)<input id="cfg-namecol" /></label>
+        <label>Coluna do telefone (vazio = automático)<input id="cfg-phonecol" /></label>
+      </div>
+      <h2>Conexão com a planilha</h2>
+      <div class="row">
+        <button id="btn-copy-script">1. Copiar código do Apps Script</button>
+        <span class="muted">Cole em Extensões → Apps Script da planilha e implante como App da Web.</span>
+      </div>
+      <label>2. Link do App da Web (termina em /exec)<input id="cfg-scripturl" placeholder="https://script.google.com/macros/s/.../exec" /></label>
+      <details class="muted">
+        <summary>Alternativa: chave de conta de serviço</summary>
+        <p>Credencial Google: <span id="cred-path">nenhuma</span></p>
+        <p id="cred-email"></p>
+        <button id="btn-cred">Escolher credencial (.json)</button>
+      </details>
+      <div class="row">
+        <button id="btn-save" class="primary">Salvar</button>
+        <div class="spacer"></div>
+        <button id="btn-sheet">Abrir planilha</button>
+        <button id="btn-data">Pasta de dados</button>
+        <button id="btn-logout">Desconectar WhatsApp</button>
+      </div>
+      <p class="muted" id="auto-from"></p>
+    </section>
+  </main>
+  <script src="renderer.js"></script>
+</body>
+</html>

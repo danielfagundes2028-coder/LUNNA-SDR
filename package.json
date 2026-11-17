@@ -1,0 +1,62 @@
+{
+  "name": "lunna-sdr",
+  "productName": "Lunna SDR",
+  "version": "1.0.0",
+  "description": "App desktop que chama no WhatsApp os leads do formulário Respondi (via planilha Google).",
+  "main": "src/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "check": "node scripts/check.js",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac"
+  },
+  "dependencies": {
+    "google-auth-library": "^9.14.0",
+    "qrcode": "^1.5.4",
+    "whatsapp-web.js": "^1.26.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "app.lunna.sdr",
+    "productName": "Lunna SDR",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Lunna-SDR-Setup-${version}.${ext}"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "category": "public.app-category.business",
+      "identity": "-",
+      "artifactName": "Lunna-SDR-${version}-mac-${arch}.${ext}"
+    },
+    "publish": null
+  },
+  "allowScripts": {
+    "electron@33.4.11": true,
+    "puppeteer": false
+  }
+}
